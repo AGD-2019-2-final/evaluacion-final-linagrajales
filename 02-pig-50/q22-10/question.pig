@@ -17,6 +17,8 @@
 -- Escriba el resultado a la carpeta `output` del directorio actual.
 -- 
 fs -rm -f -r output;
+fs -rm -f -r data.csv
+fs -put data.csv
 -- 
 u = LOAD 'data.csv' USING PigStorage(',') 
     AS (id:int, 
@@ -28,4 +30,8 @@ u = LOAD 'data.csv' USING PigStorage(',')
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
+v = FOREACH u GENERATE $1,$4;
+w = FILTER v BY $1 MATCHES '.*n';
 
+STORE w INTO 'output' USING PigStorage(',');
+!hadoop fs -copyToLocal output output

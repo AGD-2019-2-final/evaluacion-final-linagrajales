@@ -24,6 +24,18 @@
 -- Escriba el resultado a la carpeta `output` del directorio actual.
 -- 
 fs -rm -f -r output;
+fs -rm -f -r truck_event_text_partition.csv
+fs -put truck_event_text_partition.csv
 -- 
 --  >>> Escriba su respuesta a partir de este punto <<<
 -- 
+file = LOAD 'truck_event_text_partition.csv' USING PigStorage(',')
+        AS (f1: INT, 
+            f2: INT, 
+            f3: CHARARRAY);
+            
+top10 = LIMIT file 10;
+ordered = ORDER top10 BY f1, f2, f3;
+
+STORE ordered INTO 'output' USING PigStorage(',');
+fs -copyToLocal output output
