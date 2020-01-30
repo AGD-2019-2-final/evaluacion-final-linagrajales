@@ -36,4 +36,4 @@ v = FOREACH u GENERATE $1,$4;
 w = FILTER v BY $1 MATCHES '.*[aeiou]';
 
 STORE w INTO 'output' USING PigStorage(',');
-!hadoop fs -copyToLocal output output
+fs -copyToLocal output output

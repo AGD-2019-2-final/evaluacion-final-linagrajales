@@ -32,4 +32,4 @@ u = LOAD 'data.csv' USING PigStorage(',')
 w = FOREACH u GENERATE SUBSTRING(birthday,5,7);
 
 STORE w INTO 'output';
-!hadoop fs -copyToLocal output output
+fs -copyToLocal output output

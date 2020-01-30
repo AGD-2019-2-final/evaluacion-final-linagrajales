@@ -33,4 +33,4 @@ u = LOAD 'data.csv' USING PigStorage(',')
 v = FOREACH u GENERATE INDEXOF(firstname, 'ia');
 
 STORE v INTO 'output';
-!hadoop fs -copyToLocal output output
+fs -copyToLocal output output

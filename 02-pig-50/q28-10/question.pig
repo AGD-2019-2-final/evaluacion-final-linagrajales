@@ -36,4 +36,4 @@ v = FOREACH u GENERATE $3,ToDate($3,'yyyy-MM-dd');
 w = FOREACH v GENERATE ToString($1,'yyyy'),ToString($1,'yy');
 
 STORE w INTO 'output' USING PigStorage(',');
-!hadoop fs -copyToLocal output output
+fs -copyToLocal output output

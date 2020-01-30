@@ -33,4 +33,4 @@ v = FOREACH u GENERATE INDEXOF($1, 'a', 1);
 
 STORE v INTO 'output';
 
-!hadoop fs -copyToLocal output output
+fs -copyToLocal output output

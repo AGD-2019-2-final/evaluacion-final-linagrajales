@@ -64,4 +64,4 @@ w = FOREACH v GENERATE $0,
     ToString($1,'M');
     
 STORE w INTO 'output'USING PigStorage(',');
-!hadoop fs -copyToLocal output output
+fs -copyToLocal output output

@@ -29,6 +29,8 @@
 -- Escriba el resultado a la carpeta `output` del directorio actual.
 -- 
 fs -rm -f -r output;
+fs -rm -f -r data.csv
+fs -put data.csv
 --
 u = LOAD 'data.csv' USING PigStorage(',') 
     AS (id:int, 
@@ -40,4 +42,32 @@ u = LOAD 'data.csv' USING PigStorage(',')
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
+
+
+v = FOREACH u GENERATE $3,ToDate($3,'yyyy-MM-dd');
+
+w = FOREACH v GENERATE $0,
+    ToString($1,'dd'),
+    ToString($1,'d'),
+(CASE ToString($1,'EEE')
+    WHEN 'Mon' THEN 'lun'
+    WHEN 'Tue' THEN 'mar'
+    WHEN 'Wed' THEN 'mie'
+    WHEN 'Thu' THEN 'jue'
+    WHEN 'Fri' THEN 'vie'
+    WHEN 'Sat' THEN 'sab'
+    WHEN 'Sun' THEN 'dom' 
+END),
+(CASE ToString($1,'EEE') 
+    WHEN 'Mon' THEN 'lunes' 
+    WHEN 'Tue' THEN 'martes' 
+    WHEN 'Wed' THEN 'miercoles' 
+    WHEN 'Thu' THEN 'jueves' 
+    WHEN 'Fri' THEN 'viernes' 
+    WHEN 'Sat' THEN 'sabado' 
+    WHEN 'Sun' THEN 'domingo' 
+END);
+
+STORE w INTO 'output' USING PigStorage(',');
+fs -copyToLocal output output
 
