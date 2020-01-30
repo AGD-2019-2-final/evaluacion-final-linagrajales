@@ -8,7 +8,19 @@
 -- Escriba el resultado a la carpeta `output` del directorio actual.
 -- 
 fs -rm -f -r output;
+fs -rm -f -r data.tsv
+fs -put data.tsv
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
+file = LOAD 'data.tsv' 
+        AS (f1: CHARARRAY, 
+            f2: BAG{t:(p:CHARARRAY)});
+            
+letras = FOREACH file GENERATE f1, FLATTEN(f2);
+letras2 = FOREACH letras GENERATE p;
+grouped = GROUP letras2 BY p;
+wordcount = FOREACH grouped GENERATE group, COUNT(letras2);
 
+STORE wordcount INTO 'output';
+fs -copyToLocal output output
