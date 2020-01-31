@@ -11,7 +11,7 @@ fs -rm -f -r output;
 fs -rm -f -r data.tsv
 fs -put data.tsv
 
-file = LOAD 'data.tsv' 
+file = LOAD 'data.tsv' USING PigStorage('\t')
        AS (f1: CHARARRAY, 
            f2: CHARARRAY, 
            f3: INT);

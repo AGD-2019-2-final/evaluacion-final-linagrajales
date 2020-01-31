@@ -16,6 +16,8 @@
 -- Escriba el resultado a la carpeta `output` del directorio actual.
 -- 
 fs -rm -f -r output;
+fs -rm -f -r data.csv
+fs -put data.csv
 --
 u = LOAD 'data.csv' USING PigStorage(',') 
     AS (id:int, 
@@ -27,8 +29,7 @@ u = LOAD 'data.csv' USING PigStorage(',')
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
-fs -rm -f -r data.csv
-fs -put data.csv
+
 
 v = FOREACH u GENERATE $1;
 w = FILTER v BY SUBSTRING(firstname, 0, 1) >= 'M';

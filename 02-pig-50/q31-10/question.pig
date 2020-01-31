@@ -9,6 +9,8 @@
 -- Escriba el resultado a la carpeta `output` del directorio actual.
 -- 
 fs -rm -f -r output;
+fs -rm -f -r data.csv
+fs -put data.csv
 -- 
 u = LOAD 'data.csv' USING PigStorage(',') 
     AS (id:int, 
@@ -20,3 +22,12 @@ u = LOAD 'data.csv' USING PigStorage(',')
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
+
+
+v = FOREACH u GENERATE $3,ToDate($3,'yyyy-MM-dd');
+w = FOREACH v GENERATE $0, GetYear($1);
+y = GROUP w BY $1;
+z = FOREACH y GENERATE $0, COUNT(w);
+
+STORE z INTO 'output' USING PigStorage(',');
+fs -copyToLocal output output

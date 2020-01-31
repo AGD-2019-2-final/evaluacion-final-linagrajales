@@ -23,4 +23,5 @@ grouped = GROUP letras2 BY p;
 wordcount = FOREACH grouped GENERATE group, COUNT(letras2);
 
 STORE wordcount INTO 'output';
+
 fs -copyToLocal output output
