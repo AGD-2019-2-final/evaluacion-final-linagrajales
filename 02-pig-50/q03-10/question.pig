@@ -8,8 +8,6 @@ fs -rm -f -r output;
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
-fs -rm -f -r data.tsv
-fs -put data.tsv
 
 file = LOAD 'data.tsv' USING PigStorage('\t')
        AS (f1: CHARARRAY, 
