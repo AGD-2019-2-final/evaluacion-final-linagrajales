@@ -24,8 +24,7 @@
 -- Escriba el resultado a la carpeta `output` del directorio actual.
 -- 
 fs -rm -f -r output;
-fs -rm -f -r truck_event_text_partition.csv
-fs -put truck_event_text_partition.csv
+
 -- 
 --  >>> Escriba su respuesta a partir de este punto <<<
 -- 
