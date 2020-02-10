@@ -8,8 +8,7 @@
 -- Escriba el resultado a la carpeta `output` del directorio actual.
 -- 
 fs -rm -f -r output;
-fs -rm -f -r data.tsv
-fs -put data.tsv
+
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
