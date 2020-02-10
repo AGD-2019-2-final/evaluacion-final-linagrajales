@@ -14,8 +14,7 @@ fs -rm -f -r output;
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
-fs -rm -f -r data.tsv
-fs -put data.tsv
+
 file = LOAD 'data.tsv' 
         AS (f1: CHARARRAY, 
             f2: BAG{t:(p:CHARARRAY)}, 
